@@ -1,0 +1,82 @@
+﻿<Page x:Class="Diplom.View.PageRating"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Diplom.View"
+      xmlns:VM="clr-namespace:Diplom.VM"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Рейтинг" Style="{StaticResource Page}">
+    <Page.DataContext>
+        <VM:RatingVM></VM:RatingVM>
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <DataGrid AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding students}" SelectedItem="{Binding selectedStudent}"
+                  Name="grid">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" />
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Отчество" Binding="{Binding MiddleName}" />
+                <DataGridTextColumn Header="Корпус" Binding="{Binding POO}" />
+                <DataGridTextColumn Header="№ Класса" Binding="{Binding Group}" />
+                <DataGridTextColumn Header="Общий рейтинг" Binding="{Binding OverAllRating}" />
+                <DataGridTextColumn Header="Направление" Binding="{Binding Directions.Name}" />
+                <DataGridTemplateColumn Header="Компетенции">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Expander Header="Раскрыть список">
+                                <TextBlock Text="{Binding competentciesRating}"></TextBlock>
+                            </Expander>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Список мероприятий">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Expander Header="Раскрыть список">
+                                <TextBlock Text="{Binding Events}"></TextBlock>
+                            </Expander>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!--таблица для экспорта-->
+        <DataGrid AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" Visibility="Hidden"
+                  Name="grid_Extort" Margin="0,207,0,0" ItemsSource="{Binding students}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" />
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Отчество" Binding="{Binding MiddleName}" />
+                <DataGridTextColumn Header="ПОО" Binding="{Binding POO}" />
+                <DataGridTextColumn Header="№ Группы" Binding="{Binding Group}" />
+                <DataGridTextColumn Header="Общий рейтинг" Binding="{Binding OverAllRating}" />
+                <DataGridTextColumn Header="Направление" Binding="{Binding Directions.Name}" />
+                <DataGridTextColumn Header="Компетенции" Binding="{Binding competentciesRating}"/>
+                <DataGridTextColumn Header="Мероприятия" Binding="{Binding EventsToString}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0">
+                <TextBlock>Найти:</TextBlock>
+                <TextBox Width="150"
+                         Margin="10 -5"
+                         MaxLength="25"
+                         materialDesign:HintAssist.Hint="Введите фамилию"
+                         materialDesign:TextFieldAssist.HasClearButton="True" TextChanged="TextBoxBase_OnTextChanged"/>
+            </StackPanel>
+            <Button HorizontalAlignment="Center" Content="Выгрузка" Margin="10" Click="Button_Click"/>
+            <Button HorizontalAlignment="Right" Content="Начислить" Margin="20" Command="{Binding AddRating}"/>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,61 @@
+﻿<Window x:Class="Diplom.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Diplom"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="МБОУ «СОШ с УИОП № 7" Height="600" Width="1111" Style="{StaticResource Wind}" Name="win">
+    <Window.DataContext>
+        <local:Statuses/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Panel.ZIndex="999" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="{Binding ElementName=frame, Path=Content.Title}"/>
+        <Frame Name="frame" NavigationUIVisibility="Hidden" Grid.Column="1" Grid.Row="1"></Frame>
+        <materialDesign:ColorZone Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Height="51" Background="{Binding ElementName=win, Path=Background}">
+            <Grid>
+                <materialDesign:PopupBox Name="btm_back" PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right">
+                    <materialDesign:PopupBox.ToggleContent>
+                        <Button Style="{StaticResource MaterialDesignIconButton}"  Name="Btn_Back" Click="Btn_Back_Click">
+                            <materialDesign:PackIcon Foreground="Black" Kind="KeyboardBackspace"/>
+                        </Button>
+                    </materialDesign:PopupBox.ToggleContent>
+                </materialDesign:PopupBox>
+            </Grid>
+        </materialDesign:ColorZone>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <TextBlock FontSize="16" Text="Меню" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+        </Grid>
+        <Grid HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="0">
+                <ListBox ItemsSource="{Binding MenuItems}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <ListBoxItem x:Name="ListViewItemMenu" Margin="-8" FontSize="15">
+                                <Grid Width="280" Height="46">
+                                    <TextBlock MouseDown="TextBlock_MouseDown" Padding="25 14"
+                                               Text="{Binding Path=Name}" />
+                                </Grid>
+                            </ListBoxItem>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+            <Image Grid.Row="1" Width="250" VerticalAlignment="Bottom" HorizontalAlignment="Left" Source="/Diplom;component/Resources/logo1.jpg"></Image>
+        </Grid>
+    </Grid>
+</Window>
+

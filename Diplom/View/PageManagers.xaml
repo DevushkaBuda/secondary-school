@@ -1,0 +1,30 @@
+﻿<Page x:Class="Diplom.View.PageManagers"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Diplom.View"
+      xmlns:diplom="clr-namespace:Diplom"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Члены органов школьного совета" Style="{StaticResource Page}">
+    <Page.DataContext>
+        <diplom:ManagersVM></diplom:ManagersVM>
+    </Page.DataContext>
+    <Grid>
+        <ScrollViewer HorizontalAlignment="Center" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="0">
+            <ListBox ItemsSource="{Binding directions}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <ListBoxItem x:Name="ListViewItemMenu" Margin="-8" FontSize="15">
+                            <Grid Width="280" Height="46">
+                                <TextBlock TextAlignment="Center" MouseDown="TextBlock_MouseDown" Padding="25 14"
+                                           Text="{Binding Path=Name}" />
+                            </Grid>
+                        </ListBoxItem>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+    </Grid>
+</Page>

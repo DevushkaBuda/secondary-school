@@ -1,0 +1,31 @@
+﻿<Page x:Class="Diplom.View.PageListManagers"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Diplom.View"
+      xmlns:VM="clr-namespace:Diplom.VM"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="{Binding Title}" Style="{StaticResource Page}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <DataGrid Name="grid" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" SelectedItem="{Binding selectedItem}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding MiddleName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Контакты" Binding="{Binding Contacts}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="1">
+            <TextBlock Name="txt_main_manager" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center">У этого направления еще нет главного руководителя</TextBlock>
+            <Button HorizontalAlignment="Left" Margin="20" Content="Добавить" Command="{Binding AddCommand}"></Button>
+            <Button HorizontalAlignment="Right" Margin="0,26,10,17" Content="Удалить" Command="{Binding DelCommand}"></Button>
+            <Button HorizontalAlignment="Left" Margin="604,28,0,15" Content="Отчёт" Click="Button_Click" RenderTransformOrigin="0.534,0.569" Width="84"></Button>
+        </Grid>
+    </Grid>
+</Page>

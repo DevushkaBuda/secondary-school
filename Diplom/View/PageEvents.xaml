@@ -1,0 +1,42 @@
+﻿<Page x:Class="Diplom.View.PageEvents"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Diplom.View"
+      xmlns:VM="clr-namespace:Diplom.VM"
+      mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Мероприятия" Style="{StaticResource Page}">
+    <Page.DataContext>
+        <VM:EventsVM></VM:EventsVM>
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <DataGrid AutoGenerateColumns="False" Name="grid" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding events}" SelectedItem="{Binding selectedEvent}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Описание" Binding="{Binding Description}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Направление" Binding="{Binding Path=Directions.Name}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Компетенции">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Expander Header="Раскрыть список">
+                                <TextBlock Text="{Binding competentciesRating}"></TextBlock>
+                            </Expander>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="1">
+            <Button HorizontalAlignment="Left" Content="Добавить" Margin="20" Command="{Binding AddEvent}"></Button>
+            <Button HorizontalAlignment="Center" Content="Отчёт" Margin="10" Click="ButtonBase_OnClick"></Button>
+            <Button HorizontalAlignment="Right" Content="Удалить" Margin="20" Command="{Binding DeleteEvent}"></Button>
+        </Grid>
+    </Grid>
+</Page>
